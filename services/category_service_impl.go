@@ -1,6 +1,7 @@
 package services
 
 import (
+	"api-test/exception"
 	"api-test/helper"
 	"api-test/model/domain"
 	"api-test/model/web"
@@ -8,7 +9,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 )
 
 type CategoryServiceImpl struct {
@@ -76,7 +77,9 @@ func (c *CategoryServiceImpl) FindId(ctx context.Context, categoryId int) web.Ca
 	defer helper.CommitOrRollback(tx)
 
 	category, err := c.CategoryRepository.FindId(ctx, tx, categoryId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	return helper.ToCategoryResponse(category)
 }

@@ -4,7 +4,7 @@ accept: application/json
 Content-Type: application/json
 
 ### Get Specific categories 
-GET http://localhost:3000/api/categories/3
+GET http://localhost:3000/api/categories/
 Accept: application/json
 Content-Type: application/json
 
@@ -15,7 +15,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-     "name":"Binatang"
+     "name":"binatang"
 }
 
 ### Update categories

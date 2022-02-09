@@ -57,8 +57,7 @@ func (c *CategoryRepositoryImpl) FindId(ctx context.Context, tx *sql.Tx, categor
 	// if using sql
 	// SQL := "SELECT id, name FROM category where id = ?"
 	SQL := "SELECT id, name FROM category where id = $1"
-	row, err := tx.QueryContext(ctx, SQL, categoryId)
-	helper.PanicIfError(err)
+	row, _ := tx.QueryContext(ctx, SQL, categoryId)
 
 	category := domain.Category{}
 	if row.Next() {
