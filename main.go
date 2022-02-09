@@ -8,8 +8,11 @@ import (
 	"api-test/repository"
 	"api-test/services"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -17,7 +20,13 @@ var (
 )
 
 func main() {
+	// todo: logrus for logs
+	file, _ := os.OpenFile("storages/logs/application-"+time.Now().Format("02-01-2006")+".log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	logrus.SetOutput(file)
+	logrus.SetFormatter(&logrus.JSONFormatter{})
+	logrus.SetLevel(logrus.DebugLevel)
 
+	//  todo: init
 	DB := app.NewDB()
 	validate := validator.New()
 	categoryRepository := repository.NewCategoryRepository()
